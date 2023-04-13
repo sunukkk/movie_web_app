@@ -33,7 +33,7 @@ function Nav() {
     <nav className = {`nav ${show && 'nav__black'}`}>
 
       <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/170px-Netflix_2015_logo.svg.png'
-           alt='Neflix Logo' className='nav__logo' onClick={() =>{window.location.reload()}}  />
+           alt='Neflix Logo' className='nav__logo' onClick={() =>{window.location.href = "/movie_web_app/"}}  />
 
       <input type="search" placeholder='영화를 검색해주세요' className='nav__input' onChange={onChange} value={searchValue}/>
       
