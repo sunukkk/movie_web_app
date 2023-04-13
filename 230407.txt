@@ -1,0 +1,24 @@
+넷플릭스 앱
+
+create-react-app ./ 앱생성
+
+
+영화 db 
+https://www.themoviedb.org/
+
+회워너가입 / 로그인
+
+api 생성 - developer
+
+axios 인스턴스화 :
+중복되는 부분 객체화해서 반복입력 없도록하는것
+
+src\api 
+Axios.js
+requests.js 
+2개파일만들기
+
+axios 설치 npm install axios
+
+axios.js 작성
+
