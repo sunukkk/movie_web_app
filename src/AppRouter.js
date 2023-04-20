@@ -1,11 +1,18 @@
+import Auth from "components/Auth";
 import Footer from "components/Footer";
 import Nav from "components/Nav"
+
 import { Outlet, Route, Routes } from "react-router-dom";
 import DetailPage from "routes/DetailPage";
 import MainPage from "routes/MainPage";
 import SearchPage from "routes/SearchPage";
 
-import 'styles/App.css'
+import './styles/App.css'
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { authService } from "fbase";
+import Profile from "routes/Profile";
+
 
 const Layout = () =>{
   return (
@@ -17,18 +24,49 @@ const Layout = () =>{
   )
 }
 
-
-
 function AppRouter() {
+  const [init, setInit] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userObj, setUserObj] = useState(null);
+
+  useEffect(() => {
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        setIsLoggedIn(user)
+        setUserObj(user)
+      } else {
+        setIsLoggedIn(false)
+      }
+      setInit(true)
+    });
+    
+  },[]);
+
+  if(!init){
+    return (<div>initializing...</div>);  
+  }
+
   return (
     <div className="app">
-      <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route index element = {<MainPage />} />
-          <Route path=":movieId" element = {<DetailPage />} />
-          <Route path="search" element = {<SearchPage />} />
-        </Route>
-      </Routes>
+    
+    {isLoggedIn ? (
+          <Routes>
+            <Route path = '/' element ={<Layout />}>
+              <Route index element={<MainPage />} />
+              <Route path=":movieId" element={<DetailPage />} />
+              <Route path="search" element={<SearchPage />} />
+            </Route>
+            <Route path="profile" element={<Profile userObj ={userObj} />} />
+          </Routes>
+      ) : (
+        <Auth/>
+      )}
+
+    </div>
+  );
+}
+
+export default AppRouter;
 
 
       {/*
@@ -44,8 +82,3 @@ function AppRouter() {
       <Row title='Action Movie' id='CM' fetchUrl={requests.fetchAction} />
       <Footer />
       */}
-    </div>
-  );
-}
-
-export default AppRouter;

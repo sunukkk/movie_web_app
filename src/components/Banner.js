@@ -10,7 +10,6 @@ function Banner() {
 
   const fetchData = async () =>{
     const request = await axios.get(requests.fetchNowPlaying);
-    console.log("request -->", request);
 
     const movieId = request.data.results[
       Math.floor(Math.random() * request.data.results.length + 0)
@@ -20,7 +19,6 @@ function Banner() {
     const { data: movieDetail } = await axios.get(`/movie/${movieId}`, {
       params: { append_to_response: "videos" },
     });
-    console.log("movieDetail -->", movieDetail);
     setMovie(movieDetail);
   };
 
