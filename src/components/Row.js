@@ -32,7 +32,6 @@ function Row({isLargeRow, title, id, fetchUrl}) {
     setMovies(request.data.results);
   }
 
-
   return (
     <section className='row' key={id}>
       <h2>{title}</h2>
@@ -93,7 +92,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
         </div>
       </Swiper>
       {modalOpen && (
-        <MovieModal {...movieSelected} setModalOpen={setModalOpen} />
+        <MovieModal {...movieSelected} isLargeRow={isLargeRow} setModalOpen={setModalOpen} />
       )}
     </section>
   )

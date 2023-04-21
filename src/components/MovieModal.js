@@ -4,19 +4,20 @@ import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import "styles/MovieModal.css";
 
-function MovieModal({ setModalOpen, backdrop_path, overview, release_date, first_air_date, title, name, vote_average, id, genre_ids }) {
+function MovieModal({ setModalOpen, backdrop_path, overview, release_date, first_air_date, title, name, vote_average, id, isLargeRow }) {
   const [movie, setMovie] = useState({});
   const ref = useRef();
-
-  console.log('id ---> ', id);
-
+  
   const fetchData = async () => {
-    const { data: response } = await axios.get(`/movie/${id}`, {
+    let url = `/movie/${id}`;
+    if (isLargeRow) {
+      url = `/tv/${id}`;
+    }
+    const { data: response } = await axios.get(url, {
       params: { append_to_response: "videos" },
     });
     setMovie(response);
-    console.log(response);
-
+    console.log('response--->', response)
   };
 
   useEffect(() => {
@@ -40,9 +41,10 @@ function MovieModal({ setModalOpen, backdrop_path, overview, release_date, first
             <h2 className="modal__title">{title ? title : name}</h2>
             <p className="modal__details"> 평점 : {vote_average}</p>
             <p className="modal__overview">{overview}</p>
-            {movie.genres && movie.genres.map((genre, index) => (
+            <p>{movie.genres && movie.genres.map((genre, index) => (
               <span key={index}>{genre.name}</span>))}
-            {movie.videos?.results?.length && (
+            </p>
+            {movie.videos?.results?.length ? (
               <div className="modal__video">
                 <h3>Videos</h3>
                 <ul>
@@ -61,7 +63,7 @@ function MovieModal({ setModalOpen, backdrop_path, overview, release_date, first
                   ))}
                 </ul>
               </div>
-            )}
+            ): null}
           </div>
         </div>
       </div>
