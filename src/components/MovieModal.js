@@ -15,7 +15,8 @@ function MovieModal({ setModalOpen, backdrop_path, overview, release_date, first
       params: { append_to_response: "videos" },
     });
     setMovie(response);
-    console.log(response.data);
+    console.log(response);
+
   };
 
   useEffect(() => {
