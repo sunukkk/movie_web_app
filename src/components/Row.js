@@ -14,7 +14,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
   const [movies, setMovies] = useState([]);
   const [modalOpen, setModalOpen] = useState(false)
   const [movieSelected, setMovieSelected] = useState({})
-
+  const [hoveredMovieId, setHoveredMovieId] = useState(null)
 
 
   useEffect(() =>{
@@ -25,6 +25,14 @@ function Row({isLargeRow, title, id, fetchUrl}) {
   const handleClick = (movie) =>{
     setModalOpen(true)
     setMovieSelected(movie)
+  }
+
+  const handleMouseEnter = (movie) =>{
+    setHoveredMovieId(movie.id);
+  }
+
+  const handleMouseLeave = () =>{
+    setHoveredMovieId(null)
   }
 
   const fetchMovieData = async () =>{
@@ -59,36 +67,34 @@ function Row({isLargeRow, title, id, fetchUrl}) {
             }
           }} 
       >
-        {/* 
-        <div className='slider'>
-          <div className='slider__arrow left'>
-            <span className='arrow' onClick={()=>{document.getElementById(id).scrollLeft-=(window.innerWidth - 80)}}> 
-              // 80은 hover했을 때 생기는 띠의 너비값
-              {"<"}
-            </span>
-          </div>
-        </div>
-        */}
+
         <div className='row__posters' id={id}>
           {movies.map((movie) => (
-            <SwiperSlide key={movie.id}>
+            <SwiperSlide key={movie.id} >
+            <div className='movie__poster-container'
+            onMouseOver={() => handleMouseEnter(movie)}
+            >
+              
               <img
                 className={`row__poster ${isLargeRow && 'row__posterLarge'}`}
                 onClick={() => handleClick(movie)}
-                src={`https://image.tmdb.org/t/p/original${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
+                src={`https://image.tmdb.org/t/p/original${
+                  isLargeRow ? movie.poster_path : movie.backdrop_path
+                }`}
                 loading='lazy'
                 alt={movie.title || movie.name || movie.original_name}
+                onMouseLeave={() => handleMouseLeave()}
               />
-            </SwiperSlide>
+
+              {/* movie__detail이 hoveredMovieId와 일치하면 보이도록 처리 */}
+              <div className={`movie__detail ${hoveredMovieId === movie.id ? 'visible' : 'hidden'}`} >
+                {movie.title || movie.name || movie.original_name}
+              </div>
+              
+            </div>
+          </SwiperSlide>
           ))}
-          {/*
-          <div className='slider__arrow right'>
-            <span className='arrow' onClick={()=>{document.getElementById(id).scrollLeft+=(window.innerWidth - 80)}}>
-              {">"}
-            </span>
-          </div>
-          </div>
-          */}
+
         </div>
       </Swiper>
       {modalOpen && (
