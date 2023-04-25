@@ -38,8 +38,9 @@ function Row({isLargeRow, title, id, fetchUrl}) {
   const fetchMovieData = async () =>{
     const request = await axios.get(fetchUrl)
     setMovies(request.data.results);
-  }
 
+  }
+  
   return (
     <section className='row' key={id}>
       <h2>{title}</h2>
@@ -74,7 +75,6 @@ function Row({isLargeRow, title, id, fetchUrl}) {
             <div className='movie__poster-container'
             onMouseOver={() => handleMouseEnter(movie)}
             >
-              
               <img
                 className={`row__poster ${isLargeRow && 'row__posterLarge'}`}
                 onClick={() => handleClick(movie)}
@@ -86,11 +86,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
                 onMouseLeave={() => handleMouseLeave()}
               />
 
-              {/* movie__detail이 hoveredMovieId와 일치하면 보이도록 처리 */}
-              <div className={`movie__detail ${hoveredMovieId === movie.id ? 'visible' : 'hidden'}`} >
-                {movie.title || movie.name || movie.original_name}
-              </div>
-              
+
             </div>
           </SwiperSlide>
           ))}
