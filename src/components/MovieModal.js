@@ -8,6 +8,10 @@ function MovieModal({ setModalOpen, backdrop_path, overview, release_date, first
   const [movie, setMovie] = useState({});
   const ref = useRef();
   
+  useEffect(() => {
+    fetchData();
+  }, [id]);
+
   const fetchData = async () => {
     let url = `/movie/${id}`;
     if (isLargeRow) {
@@ -17,12 +21,10 @@ function MovieModal({ setModalOpen, backdrop_path, overview, release_date, first
       params: { append_to_response: "videos" },
     });
     setMovie(response);
-    console.log('response--->', response)
+    console.log('----------------',response)
   };
 
-  useEffect(() => {
-    fetchData();
-  }, [id]);
+
 
   useOnClickOutside(ref, () => { setModalOpen(false) });
 

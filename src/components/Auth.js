@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {authService} from '../fbase'
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
@@ -9,6 +10,8 @@ function Auth() {
   const [password, setPassword] = useState('');
   const [newAccount, setNewAccount] = useState(true); // true 회원가입, false 로그인
   const [error, setError] = useState('');
+
+  const navigate = useNavigate;
 
   const onChange = (e) => {
     const {target:{name, value}} = e;
@@ -27,10 +30,11 @@ function Auth() {
       if(newAccount){
         //회원가입
         data = await createUserWithEmailAndPassword(authService, email, password);
+
       } else {
         data = await signInWithEmailAndPassword(authService, email, password);
       }
-      console.log('data---->', data);
+      Navigate('/')
     } catch(error) {
       console.log('error->', error);
       switch(error.code) {
@@ -68,7 +72,6 @@ function Auth() {
 
     }
     const data = await signInWithPopup(authService, provider)
-    console.log('data ->',data)
   }
 
   useEffect(() => {

@@ -1,13 +1,19 @@
+import { authService } from 'fbase';
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 function Profile({userObj}) {
+  
+  const Navigate = useNavigate();
 
-  console.log({userObj})
-
+  const onLogOutClick = () =>{
+    authService.signOut();
+    Navigate('/')
+  }
   return (
     <>
     <div><button><Link to ='/'>back</Link></button></div>
+    <div><button onClick={onLogOutClick}>Logout</button></div>
     <div>TITLE Profile</div>
     <div>{userObj.displayName ? userObj.displayName : "what's your nickname?"}</div>
     <div>{userObj.photoUrl ? userObj.photoUrl : "ProfileImage"}</div>
