@@ -1,5 +1,5 @@
 import axios from 'api/axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import MovieModal from './MovieModal';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
@@ -16,14 +16,8 @@ function Row({isLargeRow, title, id, fetchUrl}) {
   const [movieSelected, setMovieSelected] = useState({})
   const [hoveredMovie, setHoveredMovie] = useState({})
   const [hoveredMovieId, setHoveredMovieId] = useState(null)
+  const nowPlaying = useRef(null)
   
-  
-
-  useEffect(() =>{
-    fetchMovieData();
-    
-  },[fetchUrl]);
-
 
   const handleClick = (movie) =>{
     setModalOpen(true)
@@ -34,39 +28,39 @@ function Row({isLargeRow, title, id, fetchUrl}) {
     const request = await axios.get(fetchUrl)
     setMovies(request.data.results);
   }
+  
+  const onMouseEnter = async (movie) =>{
+    setMovieSelected(movie)
+    setHoveredMovieId(movie.id)
 
-
-  /* 
-  let url = `/movie/${id}`;
+    let url = `/movie/${movie.id}`;
     if (isLargeRow) {
-      url = `/tv/${id}`;
+      url = `/tv/${movie.id}`;
     }
     const { data: response } = await axios.get(url, {
       params: { append_to_response: "videos" },
     });
-    setMovie(response);
-     */
-  
-    const onMouseEnter = async (movie) =>{
-      setMovieSelected(movie)
-      setHoveredMovieId(movie.id)
+    setHoveredMovie(response);
+    console.log('===============>',response)
+    
+    if (nowPlaying.current) {
+      nowPlaying.current.src = `https://www.youtube.com/embed/${response.videos.results[0].key}?autoplay=1`;
+    }
+  }
 
-      let url = `/movie/${movie.id}`;
-      if (isLargeRow) {
-        url = `/tv/${movie.id}`;
+    const onMouseLeave = () => {
+      setHoveredMovieId(null)
+      setMovieSelected({})
+      if (nowPlaying.current) {
+        nowPlaying.current.src = ""; 
       }
-      const { data: response } = await axios.get(url, {
-        params: { append_to_response: "videos" },
-      });
-      setHoveredMovie(response);
-      console.log('===============>',response)
-      
     }
 
-  const onMouseLeave = () => {
-    setHoveredMovieId(null)
-    setMovieSelected({})
-  }
+  useEffect(() =>{
+    fetchMovieData();
+    
+  },[fetchUrl]);
+
   return (
     <section className='row' key={id}>
       <h2>{title}</h2>
@@ -113,6 +107,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
                   {hoveredMovie.id === movie.id && hoveredMovie.videos?.results[0] && (
                     <p className="movie-detail-trailor">
                       <iframe 
+                        ref={nowPlaying}
                         title="Trailer Video"
                         width="100%" 
                         height="100%" 
