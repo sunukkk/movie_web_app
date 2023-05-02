@@ -18,7 +18,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
   const [hoveredMovieId, setHoveredMovieId] = useState(null)
   const nowPlaying = useRef(null)
   
-
+  
   const handleClick = (movie) =>{
     setModalOpen(true)
     setMovieSelected(movie)
@@ -41,10 +41,11 @@ function Row({isLargeRow, title, id, fetchUrl}) {
       params: { append_to_response: "videos" },
     });
     setHoveredMovie(response);
-    console.log('===============>',response)
     
-    if (nowPlaying.current) {
+    if (nowPlaying.current && response.videos.results[0]) {
       nowPlaying.current.src = `https://www.youtube.com/embed/${response.videos.results[0].key}?autoplay=1`;
+    } else if (nowPlaying.current) {
+      nowPlaying.current.src = "";
     }
   }
 
@@ -56,10 +57,14 @@ function Row({isLargeRow, title, id, fetchUrl}) {
       }
     }
 
-  useEffect(() =>{
-    fetchMovieData();
+    useEffect(() =>{
+      fetchMovieData();
+      console.log('fetchUrl: ', fetchUrl);
+    }, [fetchUrl]);
     
-  },[fetchUrl]);
+    useEffect(() => {
+      console.log('movies: ', movies);
+    }, [movies]);
 
   return (
     <section className='row' key={id}>
@@ -107,6 +112,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
                   {hoveredMovie.id === movie.id && hoveredMovie.videos?.results[0] && (
                     <p className="movie-detail-trailor">
                       <iframe 
+                        onClick={() => handleClick(movie)}
                         ref={nowPlaying}
                         title="Trailer Video"
                         width="100%" 
@@ -118,7 +124,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
                       />
                     </p>
                   )}
-                  <div className="poster-detail-text">
+                  <div className="poster-detail-text" onClick={() => handleClick(movie)}>
                     <p className='poster-detail-title'>{movie.title || movie.name || movie.original_name}</p>
                     <p className='poster-detail-overview'>{movie.overview.length > 50 ? `${movie.overview.slice(0, 80)}...` : movie.overview}</p>
                   </div>
@@ -129,7 +135,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
         </div>
       </Swiper>
       {modalOpen && (
-        <MovieModal {...movieSelected} isLargeRow={isLargeRow} setModalOpen={setModalOpen} />
+        <MovieModal {...movieSelected} fetchUrl={fetchUrl} isLargeRow={isLargeRow} setModalOpen={setModalOpen} />
       )}
     </section>
   );
