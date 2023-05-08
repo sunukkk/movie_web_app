@@ -43,7 +43,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
     setHoveredMovie(response);
     
     if (nowPlaying.current && response.videos.results[0]) {
-      nowPlaying.current.src = `https://www.youtube.com/embed/${response.videos.results[0].key}?autoplay=1`;
+      nowPlaying.current.src = `https://www.youtube.com/embed/${response.videos.results[0].key}?autoplay=1&muted=1`;
     } else if (nowPlaying.current) {
       nowPlaying.current.src = "";
     }
@@ -59,7 +59,6 @@ function Row({isLargeRow, title, id, fetchUrl}) {
 
     useEffect(() =>{
       fetchMovieData();
-      console.log('fetchUrl: ', fetchUrl);
     }, [fetchUrl]);
     
     useEffect(() => {
@@ -117,7 +116,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
                         title="Trailer Video"
                         width="100%" 
                         height="100%" 
-                        src={`https://www.youtube.com/embed/${hoveredMovie.videos.results[0].key}?autoplay=1`} 
+                        src={`https://www.youtube.com/embed/${hoveredMovie.videos.results[0].key}?autoplay=1&muted=1`} 
                         frameBorder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowFullScreen

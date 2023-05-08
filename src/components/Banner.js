@@ -3,6 +3,7 @@ import axios from 'api/axios';
 import requests from 'api/requests';
 import 'styles/Banner.css';
 import styled from 'styled-components';
+import MovieModal from './MovieModal';
 
 function Banner() {
   const [movie, setMovie] = useState({});

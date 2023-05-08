@@ -48,9 +48,12 @@ h2{padding-left: 20px;}
 .swiper{padding: 10px 0 30px !important}
 .swiper_wrapper{height: 100%;}
 
-.movie__poster-container{position: relative; transition: all 0.5s ease-out}
-.movie__poster-container.on{position: absolute; left: 10px; z-index: 999; transform: scale(1.5);}
+.movie__poster-container{position: relative; width: 100%; transition: all 0.5s ease-out; overflow: hidden;}
+.movie__poster-container.on{position: absolute; z-index: 999; transform: scale(1.2);}
+.movie__poster-container.on::before{content:''; position: absolute; width: 100%;height: 100%;left: 0;top: 0; background: rgba(0,0,0,0.5);}
 
-.poster-detail-text{position: absolute; bottom: 0;}
 
-.movie-detail-trailor{position: absolute;top: 0;}
+.movie__poster-container .poster-detail-text{position: absolute; bottom: -100%; pointer-events: none; visibility: hidden; transition: all 0.3s ease-in}
+.movie__poster-container.on .poster-detail-text{bottom: 0;visibility: visible;}
+
+.movie-detail-trailor{position: absolute;top: 0;width: 100%;}

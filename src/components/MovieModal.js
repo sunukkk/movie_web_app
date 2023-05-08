@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import "styles/MovieModal.css";
 
-function MovieModal({ setModalOpen, id, mediaType }) {
+function MovieModal({ setModalOpen, id, mediaType, isLargeRow }) {
   const [movie, setMovie] = useState({});
   const ref = useRef();
   console.log('movie-----', movie)
@@ -17,7 +17,7 @@ function MovieModal({ setModalOpen, id, mediaType }) {
   const fetchData = async () => {
 
     let url;
-    if (mediaType === "tv") {
+    if (isLargeRow == true) {
       url = `/tv/${id}`;
     } else {
       url = `/movie/${id}`;
@@ -28,7 +28,6 @@ function MovieModal({ setModalOpen, id, mediaType }) {
     });
 
     setMovie(response);
-    console.log('----------------',response)
   };
 
 
@@ -63,7 +62,7 @@ function MovieModal({ setModalOpen, id, mediaType }) {
                         title="Trailer Video"
                         width="560" 
                         height="315" 
-                        src={`https://www.youtube.com/embed/${movie.videos.results[index].key}`} 
+                        src={`https://www.youtube.com/embed/${movie.videos.results[index].key}?autoplay=1&muted=1`}
                         frameBorder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowFullScreen
