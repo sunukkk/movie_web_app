@@ -9,7 +9,10 @@ function Banner() {
   const [movie, setMovie] = useState({});
   const [isClicked, setIsClicked] = useState(false);
 
-  const fetchData = async () =>{
+  const [modalOpen, setModalOpen] = useState(false);
+  const [movieSelected, setMovieSelected] = useState({});
+
+  const fetchData = async () => {
     const request = await axios.get(requests.fetchNowPlaying);
 
     const movieId = request.data.results[
@@ -24,55 +27,74 @@ function Banner() {
   };
 
   useEffect(() => {
-
     fetchData();
   }, []);
 
-  const truncate = (str, n) =>{
-    return str?.length > n ? str.substr(0, n-1) + "..." : str;
-  }
+  const truncate = (str, n) => {
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  };
 
-  if(!isClicked){
+  const handleClick = (movie) => {
+    setModalOpen(true);
+    setMovieSelected(movie);
+  };
+
+  if (!isClicked) {
     return (
-      <header className='banner' style={{
-              backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`,
-              backgroundPosition: 'top center',
-              backgroundSize: 'cover'
-              }}>
+      <header
+        className='banner'
+        style={{
+          backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`,
+          backgroundPosition: 'top center',
+          backgroundSize: 'cover',
+        }}
+      >
         <div className='banner__contents'>
           <h1 className='banner__title'>
-              {movie.title || movie.name || movie.original_name }
+            {movie.title || movie.name || movie.original_name}
           </h1>
           <div className='banner__buttons'>
-            <button className="banner__button play" onClick = {() => setIsClicked(true)}>
+            <button
+              className='banner__button play'
+              onClick={() => setIsClicked(true)}
+            >
               play
             </button>
-            <button className='banner__button info'>
+            <button
+              className='banner__button info'
+              onClick={() => handleClick(movie)}
+            >
               More Information
             </button>
           </div>
-          <p className="banner__description">
+          <p className='banner__description'>
             {truncate(movie.overview, 100)}
           </p>
         </div>
-        <div className="banner--fadeBottom"></div>
+        <div className='banner--fadeBottom'></div>
+        {modalOpen && (
+      <MovieModal {...movieSelected} setModalOpen={setModalOpen}
+      />
+    )}
       </header>
+      
     );
   } else {
     return (
       <Container>
         <HomeContainer>
           <Iframe
-          src={`https://www.youtube.com/embed/${movie.videos.results[0]?.key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0]?.key}`}
-          width = '640'
-          height = '360'
-          frameborder = '0'
-          allow = 'autoplay; fullscreen;'
-          
+            src={`https://www.youtube.com/embed/${movie.videos.results[0]?.key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0]?.key}`}
+            width='640'
+            height='360'
+            frameborder='0'
+            allow='autoplay; fullscreen;'
           ></Iframe>
         </HomeContainer>
+        
       </Container>
-    )
+    );
+
   }
 }
 

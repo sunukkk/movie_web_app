@@ -3,6 +3,7 @@ import {authService} from '../fbase'
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
 import { Navigate, useNavigate } from 'react-router-dom';
 
+import "styles/Auth.css";
 
 
 function Auth() {

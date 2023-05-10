@@ -19,10 +19,10 @@ function Row({isLargeRow, title, id, fetchUrl}) {
   const nowPlaying = useRef(null)
   
   
-  const handleClick = (movie) =>{
-    setModalOpen(true)
-    setMovieSelected(movie)
-  }
+  const handleClick = (movie) => {
+    setModalOpen(true);
+    setMovieSelected(movie);
+  };
 
   const fetchMovieData = async () =>{
     const request = await axios.get(fetchUrl)
@@ -43,7 +43,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
     setHoveredMovie(response);
     
     if (nowPlaying.current && response.videos.results[0]) {
-      nowPlaying.current.src = `https://www.youtube.com/embed/${response.videos.results[0].key}?autoplay=1&muted=1`;
+      nowPlaying.current.src = `https://www.youtube.com/embed/${response.videos.results[0].key}?autoplay=1&mute=1`;
     } else if (nowPlaying.current) {
       nowPlaying.current.src = "";
     }
@@ -61,10 +61,6 @@ function Row({isLargeRow, title, id, fetchUrl}) {
       fetchMovieData();
     }, [fetchUrl]);
     
-    useEffect(() => {
-      console.log('movies: ', movies);
-    }, [movies]);
-
   return (
     <section className='row' key={id}>
       <h2>{title}</h2>
@@ -99,7 +95,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
               <div className={`movie__poster-container ${movie.id === hoveredMovieId ? 'on' : ''}`}
                    onMouseEnter={() => onMouseEnter(movie)}
                    onMouseLeave={() => onMouseLeave()}>
-                
+                   
                 <img className={`row__poster ${isLargeRow && 'row__posterLarge'}`}
                      onClick={() => handleClick(movie)}
                      src={`https://image.tmdb.org/t/p/original${ isLargeRow ? movie.poster_path : movie.backdrop_path }`}
@@ -111,22 +107,23 @@ function Row({isLargeRow, title, id, fetchUrl}) {
                   {hoveredMovie.id === movie.id && hoveredMovie.videos?.results[0] && (
                     <p className="movie-detail-trailor">
                       <iframe 
-                        onClick={() => handleClick(movie)}
                         ref={nowPlaying}
                         title="Trailer Video"
                         width="100%" 
                         height="100%" 
-                        src={`https://www.youtube.com/embed/${hoveredMovie.videos.results[0].key}?autoplay=1&muted=1`} 
+                        src={`https://www.youtube.com/embed/${hoveredMovie.videos.results[0].key}?autoplay=1&mute=1&controls=0`} 
                         frameBorder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowFullScreen
                       />
                     </p>
                   )}
-                  <div className="poster-detail-text" onClick={() => handleClick(movie)}>
-                    <p className='poster-detail-title'>{movie.title || movie.name || movie.original_name}</p>
-                    <p className='poster-detail-overview'>{movie.overview.length > 50 ? `${movie.overview.slice(0, 80)}...` : movie.overview}</p>
-                  </div>
+                    <div className="poster-detail-text">
+                      <p className='poster-detail-title'>{movie.title || movie.name || movie.original_name} </p>
+                      <p className='poster-detail-overview'>{movie.overview.length > 50 ? `${movie.overview.slice(0, 70)}...` : movie.overview}</p>
+                      
+                    </div>
+                    <button className='detail-button'  onClick={() => handleClick(movie)}> More Information </button>
                 </div>
               </div>
             </SwiperSlide>

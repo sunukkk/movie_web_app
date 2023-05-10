@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import "styles/MovieModal.css";
 
-function MovieModal({ setModalOpen, id, mediaType, isLargeRow }) {
+function MovieModal({ setModalOpen, id, isLargeRow }) {
   const [movie, setMovie] = useState({});
   const ref = useRef();
   console.log('movie-----', movie)
@@ -62,7 +62,7 @@ function MovieModal({ setModalOpen, id, mediaType, isLargeRow }) {
                         title="Trailer Video"
                         width="560" 
                         height="315" 
-                        src={`https://www.youtube.com/embed/${movie.videos.results[index].key}?autoplay=1&muted=1`}
+                        src={`https://www.youtube.com/embed/${movie.videos.results[index].key}?autoplay=1&mute=1`}
                         frameBorder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowFullScreen
