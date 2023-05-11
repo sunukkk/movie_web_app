@@ -35,7 +35,7 @@ h2{padding-left: 20px;}
 
 
 /* swiper */
-.swiper{overflow: visible !important;}
+.swiper{overflow: hidden !important;}
 .swiper-button-prev{color: #fff !important; }
 .swiper-button-next{color: #fff !important; }
 .swiper-button-prev:after, .swiper-button-next:after{
@@ -56,7 +56,7 @@ h2{padding-left: 20px;}
 
 .movie__poster-container.on .poster-detail-text{bottom: 40px;width: calc(100% - 40px); padding: 20px;visibility: visible;}
 .movie__poster-container.on .poster-detail{transition: all 0.3s ease}
-.movie__poster-container.on .poster-detail:before{content:''; position: absolute;top: 0;bottom: 5px;right: 0; left: 0; background: rgba(0,0,0,0.8)}
+.movie__poster-container.on .poster-detail:before{content:''; position: absolute;top: 0;bottom: 4px;right: 0; left: 0; background: rgba(0,0,0,0.8)}
 
 iframe{pointer-events: auto;z-index: -10;}
 

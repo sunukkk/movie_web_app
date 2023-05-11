@@ -3,8 +3,10 @@ import {authService} from '../fbase'
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
 import { Navigate, useNavigate } from 'react-router-dom';
 
-import "styles/Auth.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub, faGoogle } from '@fortawesome/free-brands-svg-icons';
 
+import "styles/Auth.css";
 
 function Auth() {
   const [email, setEmail] = useState('');
@@ -86,27 +88,30 @@ function Auth() {
 
   return (
     <>
+    
       <div className='container'>
-        <div className='title_container'>
-          <span className='titleBg'><span className='titleContent'>Mes<span className='rotateS'>s</span>enger</span></span>
+        <div className='content_bg'>
+          <div className="content">
+            <form className='login_form' onSubmit={onSubmit}>
+              <div className='title_container'><div>Login</div> {error && <div className="error_msg">{error}</div>}</div>
+              
+              <input className='input_email' name="email" type="email" placeholder = "Email" autoComplete='off' required value={email} onChange={onChange} />
+              <input className='input_password' name="password" type="password" placeholder = "Password" required value={password} onChange={onChange}/>
+              <span className='toggleAccount' onClick={toggleAccount}>
+              {newAccount ? "Toggle to Sign In" : " Toggle to Create Account"  }
+            </span>
+              <div className="input_submit_container">
+                <input className='input_submit' type="submit" value = {newAccount ? "Create Account" : "Log In"}/>
+              </div>
+            </form>
 
-          <form className='login_form' onSubmit={onSubmit}>
-            {error && <div className="error_msg">{error}</div>}
-            <input className='input_email' name="email" type="email" placeholder = "Email" autoComplete='off' required value={email} onChange={onChange} />
-            <input className='input_password' name="password" type="password" placeholder = "Password" required value={password} onChange={onChange}/>
-            <div className="input_submit_container">
-              <input className='input_submit' type="submit" value = {newAccount ? "Create Account" : "Log In"}/>
+            <div className='social_login'>
+              <p>Social Login</p>
+              <button className='social_login_btn' name="google" onClick={onSocialClick}><span className="btn_text"><FontAwesomeIcon icon={faGoogle} /> Continue with Google </span></button>
+              <button className='social_login_btn' name="github" onClick={onSocialClick}><span className="btn_text"><FontAwesomeIcon icon={faGithub} /> Continue with GitHub</span></button>
             </div>
-          </form>
-          <span className='toggleAccount' onClick={toggleAccount}>
-            {newAccount ? "Toggle to Sign In" : " Toggle to Create Account" }
-          </span>
-          <div>
-            <button name="google" onClick={onSocialClick}>Continue with Google</button>
-            <button name="github" onClick={onSocialClick}>Continue with GitHub</button>
           </div>
         </div>
-        
       </div>
     </>
   )

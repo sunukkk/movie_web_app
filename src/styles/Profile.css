@@ -1,0 +1,22 @@
+.profile_container{
+  display:flex;
+  width: 100%;
+  justify-content: center;
+  height: 100vh;
+  color: #fff;
+}
+
+.profile_content{padding: 80px 40px; width: 100%;}
+.profile_content>h2{padding: 0;}
+
+
+.profile_btnbox{
+  display:flex;
+  justify-content: space-between;
+  width: 100%;}
+
+.profile_image{padding: 12px; width: 160px;height: 160px; border:1px solid #fff;
+  background-size: contain; background-position: center; background-repeat: no-repeat }
+
+.profile_image_box{display:flex; flex-direction: row;}
+.profile_form{display:flex; flex-direction: column;}
