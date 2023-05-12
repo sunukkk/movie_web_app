@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import {authService} from '../fbase'
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
+
+import { authService, db} from '../fbase'
+import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faGoogle } from '@fortawesome/free-brands-svg-icons';
@@ -14,8 +17,7 @@ function Auth() {
   const [newAccount, setNewAccount] = useState(true); // true 회원가입, false 로그인
   const [error, setError] = useState('');
 
-  const navigate = useNavigate;
-
+  
   const onChange = (e) => {
     const {target:{name, value}} = e;
     if(name ==='email'){
@@ -24,7 +26,7 @@ function Auth() {
       setPassword(value)
     }
   } 
-
+  
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,11 +35,22 @@ function Auth() {
       if(newAccount){
         //회원가입
         data = await createUserWithEmailAndPassword(authService, email, password);
+        
+        const querySnapshot = await getDocs(collection(db, email));
+        const docCount = querySnapshot.size; 
+
+        await setDoc(doc(db, `${email}`, `${docCount+1}`), {
+          name : 'profile',
+          like : '',
+          profileimage: '',
+        });
 
       } else {
         data = await signInWithEmailAndPassword(authService, email, password);
       }
-      Navigate('/')
+      
+      Navigate('/profileselect')
+
     } catch(error) {
       console.log('error->', error);
       switch(error.code) {
@@ -75,6 +88,8 @@ function Auth() {
 
     }
     const data = await signInWithPopup(authService, provider)
+
+    Navigate('/profileselect')
   }
 
   useEffect(() => {

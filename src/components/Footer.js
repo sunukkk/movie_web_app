@@ -6,9 +6,9 @@ function Footer() {
     <FooterContainer>
       <FooterContent>
         <FooterLinkContainer>
-          <FooterLinkTitle> 모플릭스 코리아 </FooterLinkTitle>
+          <FooterLinkTitle> 무비웹앱 코리아 </FooterLinkTitle>
           <FooterLinkContent>
-            <FooterLink href = "#">모플릭스 소개</FooterLink>
+            <FooterLink href = "#">무비웹앱 소개</FooterLink>
             <FooterLink href = "#">고객 센터</FooterLink>
             <FooterLink href = "#">미디어 센터</FooterLink>
             <FooterLink href = "#">이용 약관</FooterLink>

@@ -1,0 +1,9 @@
+.empty{
+  display:block;
+  width: 200px;
+  height: 60px;
+  border-radius: 4px;
+  background: url(../images/user_empty.svg) no-repeat;
+  background-size: cover;
+  background-position: center;
+}

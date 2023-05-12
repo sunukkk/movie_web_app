@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Nav.css'
 
 
-function Nav() {
+function Nav({isProfileSelect, setIsProfileSelect}) {
 
   const [show, setShow] = useState("");
   const [searchValue, setSearchValue] = useState("")
@@ -28,6 +28,9 @@ function Nav() {
     navigate(`/search?q=${e.target.value}`);
   }
 
+  const onProfileClick = () =>{
+    setIsProfileSelect(false)
+  }
 
   return (
     <nav className = {`nav ${show && 'nav__black'}`}>
@@ -37,9 +40,9 @@ function Nav() {
 
       <input type="search" placeholder='영화를 검색해주세요' className='nav__input' onChange={onChange} value={searchValue}/>
       
-      <Link to ="/profile">
-      <img src='https://occ-0-4796-988.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABbme8JMz4rEKFJhtzpOKWFJ_6qX-0y5wwWyYvBhWS0VKFLa289dZ5zvRBggmFVWVPL2AAYE8xevD4jjLZjWumNo.png?r=a41'
-           alt='User logged' className='nav__avatar' />
+      <Link to ="/profileselect" onClick={onProfileClick}>
+      <p className='nav__user_logged' alt='User logged'>Profile</p>
+         
       </Link>
 
     </nav>

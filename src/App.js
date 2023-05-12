@@ -1,13 +1,8 @@
 import AppRouter from 'AppRouter';
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { faTwitter, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons'
-
+import './styles/reset.css'
 import './styles/App.css'
-
-
-library.add(fas, faTwitter, faGoogle, faGithub)
+import './styles/common.css'
 
 function App() {
 

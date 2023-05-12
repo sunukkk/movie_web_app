@@ -12,23 +12,28 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { authService } from "fbase";
 import Profile from "routes/Profile";
+import ProfileSelect from "routes/ProfileSelect";
 
 
-const Layout = () =>{
-  return (
-    <div>
-      <Nav />
-      <Outlet />
-      <Footer />
-    </div>  
-  )
-}
+
 
 function AppRouter() {
-  const [init, setInit] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userObj, setUserObj] = useState(null);
 
+  const Layout = () =>{
+    return (
+      <div>
+        <Nav isProfileSelect={isProfileSelect} setIsProfileSelect={setIsProfileSelect}/>
+        <Outlet />
+        <Footer />
+      </div>  
+    )
+  }
+
+  const [init, setInit] = useState(false)
+  const [userObj, setUserObj] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isProfileSelect, setIsProfileSelect] = useState(false);
+  
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
@@ -45,40 +50,30 @@ function AppRouter() {
   if(!init){
     return (<div>initializing...</div>);  
   }
-
   return (
     <div className="app">
     
     {isLoggedIn ? (
-          <Routes>
-            <Route path = '/' element ={<Layout />}>
-              <Route index element={<MainPage />} />
-              <Route path=":movieId" element={<DetailPage />} />
-              <Route path="search" element={<SearchPage />} />
-            </Route>
-            <Route path="profile" element={<Profile userObj ={userObj} />} />
-          </Routes>
-      ) : (
-        <Auth/>
-      )}
+      isProfileSelect ? (
+        <Routes>
+          <Route path = '/:id' element ={<Layout />}>
+            <Route index element={<MainPage userObj={userObj} /> } />
+            <Route path=":movieId" element={<DetailPage />} />
+            <Route path="search" element={<SearchPage />} />
+            <Route path="profileselect" element={<ProfileSelect userObj={userObj} />} />
+            <Route path="profile/:id" element={<Profile userObj={userObj} />} />
+          </Route>
+          <Route path="/:id/profile" element={<Profile userObj ={userObj} />} />
+        </Routes>
+       ) : (
+          <ProfileSelect path="profileselect" userObj={userObj} isProfileSelect={isProfileSelect} setIsProfileSelect={setIsProfileSelect}/>
+        )
+        ) : (
+      <Auth/>
+    )}
 
     </div>
   );
 }
 
 export default AppRouter;
-
-
-      {/*
-      <Nav />
-      <Banner />
-      <Row title='NETFLIX ORIGINALS' id='NO' fetchUrl={requests.fetchNetflixOriginals} isLargeRow/>
-      <Row title='Trending Now' id='TN' fetchUrl={requests.fetchTrending} />
-      <Row title='Top Rated' id='TR' fetchUrl={requests.fetchTopRated} />
-      <Row title='Animation Movie' id='AM' fetchUrl={requests.fetchAnimationMovies} />
-      <Row title='Family Movie' id='FM' fetchUrl={requests.fetchFamilyMovies} />
-      <Row title='Adventure Movie' id='DM' fetchUrl={requests.fetchAdventureMovies} />
-      <Row title='Science Fiction Movie' id='SM' fetchUrl={requests.fetchScienceFictionMovies} />
-      <Row title='Action Movie' id='CM' fetchUrl={requests.fetchAction} />
-      <Footer />
-      */}

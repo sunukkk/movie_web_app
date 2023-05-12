@@ -1,3 +1,5 @@
+@import url(common.css);
+
 .profile_container{
   display:flex;
   width: 100%;
@@ -7,7 +9,7 @@
 }
 
 .profile_content{padding: 80px 40px; width: 100%;}
-.profile_content>h2{padding: 0;}
+.profile_box{display:flex; flex-direction:row; border:1px solid red}
 
 
 .profile_btnbox{

@@ -1,0 +1,10 @@
+
+
+.profileselect{display:flex; flex-direction: column;
+  color: #fff; padding: 60px 40px;}
+
+.profileselect_users{display:flex; justify-content: center; align-items: center;}
+.profileselect_user{padding: 0 20px;}
+
+.profileselect_image{padding: 12px; width: 160px !important ;height: 160px !important; border:1px solid #fff;
+  background-size: contain; background-position: center; background-repeat: no-repeat }

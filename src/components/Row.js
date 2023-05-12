@@ -63,7 +63,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
     
   return (
     <section className='row' key={id}>
-      <h2>{title}</h2>
+      <h2 className='row_title'>{title}</h2>
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         navigation // 애로우버튼 사용 유무

@@ -4,7 +4,7 @@
 
 .nav__logo{position: fixed;left: 40px;width: 80px;object-fit: contain;}
 
-.nav__avatar{position: fixed;top: 20px; right: 40px;width: 30px;object-fit: contain;}
+.nav__user_logged{position: fixed;padding:2px 10px; top: 20px; right: 40px;object-fit: contain; color: #fff; font-weight: bold; border:1px solid #666; border-radius: 4px;}
 
 .nav__input{position: fixed;left: 50%;transform: translateX(-50%); padding: 5px;border: none; background-color: rgba(0,0,0,0.582); border-radius: 5px;color: #fff;
 }
