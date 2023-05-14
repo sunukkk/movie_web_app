@@ -8,8 +8,8 @@
   color: #fff;
 }
 
-.profile_content{padding: 80px 40px; width: 100%;}
-.profile_box{display:flex; flex-direction:row; border:1px solid red}
+.profile_content{padding: 80px 40px; width: 100%;overflow: hidden;}
+.profile_box{margin-bottom: 40px;display:flex; flex-direction:row;}
 
 
 .profile_btnbox{
@@ -17,8 +17,23 @@
   justify-content: space-between;
   width: 100%;}
 
+
 .profile_image{padding: 12px; width: 160px;height: 160px; border:1px solid #fff;
   background-size: contain; background-position: center; background-repeat: no-repeat }
 
-.profile_image_box{display:flex; flex-direction: row;}
-.profile_form{display:flex; flex-direction: column;}
+.profile_likesimage{ display:flex; padding: 0; overflow-y: hidden; overflow-x :scroll ; scroll-behavior: smooth;}
+.profile_likesimage::-webkit-scrollbar{display:none}
+.profile_likesimage{width: 100%; height: 100%;min-height: 320px; object-fit: cover; border-radius: 4px; transition: transform 450ms linear 0s;}
+
+.profile_likesimage{height: 320px;}
+
+@media screen and (min-width: 1200px) {
+  .profile_likesimage{max-height: 160px;}
+  .profile_likesimage{max-height: 360px}
+}
+
+@media screen and (max-width: 768px){
+  .profile_likesimage{max-height: 100px;}
+  .profile_likesimage{max-height: 280px}
+}
+

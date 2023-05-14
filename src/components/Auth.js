@@ -44,12 +44,13 @@ function Auth() {
           like : '',
           profileimage: '',
         });
-
+        Navigate('/profileselect')
       } else {
         data = await signInWithEmailAndPassword(authService, email, password);
+        Navigate('/profileselect')
       }
       
-      Navigate('/profileselect')
+      
 
     } catch(error) {
       console.log('error->', error);

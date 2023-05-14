@@ -60,10 +60,9 @@ function AppRouter() {
             <Route index element={<MainPage userObj={userObj} /> } />
             <Route path=":movieId" element={<DetailPage />} />
             <Route path="search" element={<SearchPage />} />
-            <Route path="profileselect" element={<ProfileSelect userObj={userObj} />} />
             <Route path="profile/:id" element={<Profile userObj={userObj} />} />
           </Route>
-          <Route path="/:id/profile" element={<Profile userObj ={userObj} />} />
+          <Route path="/:id/profile" element={<Profile userObj ={userObj} setIsProfileSelect={setIsProfileSelect} />} />
         </Routes>
        ) : (
           <ProfileSelect path="profileselect" userObj={userObj} isProfileSelect={isProfileSelect} setIsProfileSelect={setIsProfileSelect}/>

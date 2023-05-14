@@ -3,44 +3,116 @@ import React, { useEffect, useRef, useState } from 'react'
 import MovieModal from './MovieModal';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 
 import 'styles/Row.css'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { useLocation } from 'react-router-dom';
+import { db } from 'fbase';
 
-function Row({isLargeRow, title, id, fetchUrl}) {
+function Row({ isTv, title, id, fetchUrl, userObj }) {
+
+  const [likeMovies, setLikeMovies] = useState([]);
   const [movies, setMovies] = useState([]);
   const [modalOpen, setModalOpen] = useState(false)
   const [movieSelected, setMovieSelected] = useState({})
   const [hoveredMovie, setHoveredMovie] = useState({})
   const [hoveredMovieId, setHoveredMovieId] = useState(null)
   const nowPlaying = useRef(null)
+
+  const [profileNumber, setProfileNumber] = useState({})
+  const location = useLocation();
+  const currentURL = location.pathname;
+
+  useEffect(() => {
+    const fetchMovieData = async (userObj) => {
+      try {
+        const request = await axios.get(fetchUrl);
+        setMovies(request.data.results);
   
+        const docRef = doc(db, `${userObj.email}`, `${profileNumber}`);
+        const docSnap = await getDoc(docRef);
   
-  const handleClick = (movie) => {
+        if (docSnap.exists()) {
+          setLikeMovies(docSnap.data().like);
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching movie data:", error);
+      }
+    };
+  
+    setProfileNumber(currentURL);
+    fetchMovieData(userObj);
+  }, [fetchUrl, userObj, profileNumber, currentURL]);
+  
+
+  const onInfoClick = (movie) => {
     setModalOpen(true);
     setMovieSelected(movie);
   };
 
-  const fetchMovieData = async () =>{
-    const request = await axios.get(fetchUrl)
-    setMovies(request.data.results);
+  const onLikeClick = async (movie, userObj) => {
+  let url;
+  if (isTv) {
+    url = `/tv/${movie.id}`;
+  } else {
+    url = `/movie/${movie.id}`;
   }
-  
-  const onMouseEnter = async (movie) =>{
+
+  try {
+    const profileDocRef = doc(db, `${userObj.email}`, `${profileNumber}`);
+
+    // 이미 좋아요한 영화인지 확인
+    if (likeMovies.includes(url)) {
+      // 이미 좋아요한 영화 - 좋아요 취소
+      const updatedLikeMovies = likeMovies.filter(
+        (likedMovieUrl) => likedMovieUrl !== url
+      );
+      setLikeMovies(updatedLikeMovies);
+
+      // Firestore 문서 업데이트 - 좋아요한 영화 목록에서 해당 URL 제거
+      await updateDoc(profileDocRef, {
+        like: updatedLikeMovies,
+      });
+      console.log(updatedLikeMovies)
+    } else {
+      // 좋아요한 영화 목록에 추가
+      const updatedLikeMovies = [...likeMovies, url];
+      setLikeMovies(updatedLikeMovies);
+
+      // Firestore 문서 업데이트 - 좋아요한 영화 목록에 해당 URL 추가
+      await updateDoc(profileDocRef, {
+        like: updatedLikeMovies,
+      });
+      console.log(updatedLikeMovies)
+    }
+    
+    } catch (e) {
+      console.error('Error updating document: ', e);
+    }
+  };
+
+  const onMouseEnter = async (movie) => {
     setMovieSelected(movie)
     setHoveredMovieId(movie.id)
-
+    
     let url = `/movie/${movie.id}`;
-    if (isLargeRow) {
+    if (isTv) {
       url = `/tv/${movie.id}`;
     }
     const { data: response } = await axios.get(url, {
       params: { append_to_response: "videos" },
     });
+    
+    
     setHoveredMovie(response);
+    console.log(hoveredMovieId)
+  
     
     if (nowPlaying.current && response.videos.results[0]) {
       nowPlaying.current.src = `https://www.youtube.com/embed/${response.videos.results[0].key}?autoplay=1&mute=1`;
@@ -57,11 +129,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
       }
     }
 
-    useEffect(() =>{
-      fetchMovieData();
-    }, [fetchUrl]);
-    
-  return (
+    return (
     <section className='row' key={id}>
       <h2 className='row_title'>{title}</h2>
       <Swiper
@@ -87,7 +155,6 @@ function Row({isLargeRow, title, id, fetchUrl}) {
             slidesPerGroup: 3  
           }
         }} 
-
       >
         <div className='row__posters' id={id}>
           {movies.map((movie) => (
@@ -96,16 +163,15 @@ function Row({isLargeRow, title, id, fetchUrl}) {
                    onMouseEnter={() => onMouseEnter(movie)}
                    onMouseLeave={() => onMouseLeave()}>
                    
-                <img className={`row__poster ${isLargeRow && 'row__posterLarge'}`}
-                     onClick={() => handleClick(movie)}
-                     src={`https://image.tmdb.org/t/p/original${ isLargeRow ? movie.poster_path : movie.backdrop_path }`}
+                <img className={`row__poster ${isTv && 'row__posterLarge'}`}
+                     onClick={() => onInfoClick(movie)}
+                     src={`https://image.tmdb.org/t/p/original${ isTv ? movie.poster_path : movie.backdrop_path }`}
                      loading='lazy'
                      alt={movie.title || movie.name || movie.original_name}/>
-              
 
                 <div className='poster-detail'>
                   {hoveredMovie.id === movie.id && hoveredMovie.videos?.results[0] && (
-                    <p className="movie-detail-trailor">
+                    <div className="movie-detail-trailor">
                       <iframe 
                         ref={nowPlaying}
                         title="Trailer Video"
@@ -116,14 +182,18 @@ function Row({isLargeRow, title, id, fetchUrl}) {
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowFullScreen
                       />
-                    </p>
+                    </div>
                   )}
                     <div className="poster-detail-text">
                       <p className='poster-detail-title'>{movie.title || movie.name || movie.original_name} </p>
                       <p className='poster-detail-overview'>{movie.overview.length > 50 ? `${movie.overview.slice(0, 70)}...` : movie.overview}</p>
-                      
+                      <div className='poster-detail-btnbox'>
+                        <button className='detail-button-info' onClick={() => onInfoClick(movie)}> Info </button>
+                        <button className='detail-button-like' onClick={() => onLikeClick(movie, userObj)}>
+                          {likeMovies.includes(`/movie/${movie.id}`) || likeMovies.includes(`/tv/${movie.id}`) ? 'Unlike' : 'Like'}
+                       </button>
+                      </div>
                     </div>
-                    <button className='detail-button'  onClick={() => handleClick(movie)}> More Information </button>
                 </div>
               </div>
             </SwiperSlide>
@@ -131,7 +201,7 @@ function Row({isLargeRow, title, id, fetchUrl}) {
         </div>
       </Swiper>
       {modalOpen && (
-        <MovieModal {...movieSelected} fetchUrl={fetchUrl} isLargeRow={isLargeRow} setModalOpen={setModalOpen} />
+        <MovieModal {...movieSelected} isTv={isTv} setModalOpen={setModalOpen} />
       )}
     </section>
   );
