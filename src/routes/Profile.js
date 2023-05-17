@@ -13,14 +13,15 @@ import axios from 'api/axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft ,faImage, faCheckCircle, faTrash, faPencilAlt } from '@fortawesome/fontawesome-free-solid';
 import 'styles/Profile.css'
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import Row from 'components/Row';
+
 import MovieModal from 'components/MovieModal';
 
 function Profile({isTv, userObj, setIsProfileSelect}) {
@@ -241,7 +242,7 @@ function Profile({isTv, userObj, setIsProfileSelect}) {
     <div className='profile_container'>
       <div className="profile_content">
         <div className='profile_btnbox'>
-          <button onClick={onSelectProfileClick}>Back</button> 
+          <button onClick={onSelectProfileClick}> <FontAwesomeIcon icon={faArrowLeft} size="2xl" style={{color: "#ffffff"}} /></button> 
         </div>
 
         <div className="profile_titlebox">
@@ -257,20 +258,28 @@ function Profile({isTv, userObj, setIsProfileSelect}) {
               
                 <form className='profile_form' onSubmit={onFileSubmit}>
                   <label htmlFor="profile_file" className='profile_file'>
-                  <input className='profile_file' id='profile_file' type="file" accept='image/*' onChange={onFileChange}/>
+                    <FontAwesomeIcon icon={faImage} size="2xl" style={{color: "#ffffff"}} />
+                  <input className='blind' id='profile_file' type="file" accept='image/*' onChange={onFileChange}/>
                   </label>
+
                   <label htmlFor="profile_submit" className='profile_submit'>
-                  <input className='profile_submit' id='profile_submit' type="submit" value="Update Profile Image" />              
+                    <FontAwesomeIcon icon={faCheckCircle} size="2xl" style={{color: "#ffffff"}} />
+                  <input className='blind' id='profile_submit' type="submit" value="Update Profile Image" />              
                   </label>
+
                   <label htmlFor="profile_remove" className='profile_remove'>
-                  <button className='profile_remove' id='profile_remove' onClick = {onRemoveClick}> Remove </button>
+                    <FontAwesomeIcon icon={faTrash} size="2xl" style={{color: "#ffffff"}} />
+                  <button className='blind' id='profile_remove' onClick = {onRemoveClick}> Remove </button>
                   </label>
                 </form>
-              </div>
+              
                 
-              <div className="profile_name_box">
-                <input type="text" className="profile_name" placeholder="What's your name?" value = {newProfileName} onChange={onNameChange} />
-                <button className='profile_name_edit' onClick = {onNameSubmit} >Edit Name</button>
+                <div className="profile_name_box">
+                  <input type="text" className="profile_name" placeholder="What's your name?" value = {newProfileName} onChange={onNameChange} />
+                  <button className='profile_name_edit' onClick = {onNameSubmit} >
+                  <FontAwesomeIcon icon={faPencilAlt} size="2xl" style={{color: "#ffffff"}} />
+                  </button>
+                </div>
               </div>
             </div>
 

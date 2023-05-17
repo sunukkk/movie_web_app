@@ -1,10 +1,71 @@
 
 
-.profileselect{display:flex; flex-direction: column;
-  color: #fff; padding: 60px 40px;}
+.profileselect{
+  width: calc(100vw - 80px); 
+  height: 100vh;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  padding: 0 40px;
 
+}
+.profileselect_titlebox{
+  display:flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.profileselect_titlebox button{
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 4px;
+  background: transparent;
+  color: #fff;
+
+}
+.profileselect_title{
+  font-weight: bold;
+  font-size: 24px;
+}
 .profileselect_users{display:flex; justify-content: center; align-items: center;}
-.profileselect_user{padding: 0 20px;}
+.profileselect_user{
+  padding: 20px;
+}
 
 .profileselect_image{padding: 12px; width: 160px !important ;height: 160px !important; border:1px solid #fff;
   background-size: contain; background-position: center; background-repeat: no-repeat }
+
+.profileselect_user_box{
+  display:flex;
+  justify-content: space-between;
+}
+
+.profileselect_name{
+  font-size: 20px;
+  padding: 10px 0 20px;
+}
+
+.profile_btn_box{
+
+  display:flex;
+}
+
+.profile_btn_box a{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile_delete_btn{
+  border:none;
+  background: transparent;
+}
+.profile_edit_btn{
+  border:none;
+  background:transparent;
+}
+
+.profile_add_btn{
+  border:none;
+  background:transparent;
+  padding: 40px;
+}

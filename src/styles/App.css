@@ -1,4 +1,7 @@
 *{margin: 0;}
 
-.app{background: #111;}
+.app{
+  background: #111;
+  letter-spacing: 1px;
+}
 

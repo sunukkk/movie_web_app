@@ -8,18 +8,60 @@
   color: #fff;
 }
 
+.profile_container h2{
+  font-size: 26px;
+  font-weight: bold;
+}
+.profile_email{
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
 .profile_content{padding: 80px 40px; width: 100%;overflow: hidden;}
-.profile_box{margin-bottom: 40px;display:flex; flex-direction:row;}
-
-
+.profile_box{margin-bottom: 40px;display:flex;justify-content: center;align-items: center; flex-direction:row;}
+.profile_user_box{display:flex;flex-direction: column; align-items: center;justify-content: center;}
+.profile_form{
+  width: 100%;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+}
 .profile_btnbox{
   display:flex;
   justify-content: space-between;
   width: 100%;}
+.profile_btnbox button{
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border:none;
+}
 
 
 .profile_image{padding: 12px; width: 160px;height: 160px; border:1px solid #fff;
   background-size: contain; background-position: center; background-repeat: no-repeat }
+
+.profile_file, .profile_submit,.profile_remove{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;height: 50px; background:transparent;color: transparent; border:none;}
+
+  .profile_name{
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
+    
+  }
+  .profile_name_edit{
+    width: 50px;
+    height: 50px;
+    border:none;
+    background: transparent;
+  }
 
 .profile_likesimage{ display:flex; padding: 0; overflow-y: hidden; overflow-x :scroll ; scroll-behavior: smooth;}
 .profile_likesimage::-webkit-scrollbar{display:none}

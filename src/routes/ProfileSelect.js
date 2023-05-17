@@ -7,6 +7,10 @@ import { ref, getDownloadURL, deleteObject } from 'firebase/storage';
 import { storage, authService } from '../fbase';
 
 import 'styles/ProfileSelect.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faPlusCircle } from '@fortawesome/fontawesome-free-solid';
 
 function ProfileSelect({ userObj, isProfileSelect, setIsProfileSelect, likeMovies, setLikeMovies}) {
  
@@ -114,21 +118,24 @@ function ProfileSelect({ userObj, isProfileSelect, setIsProfileSelect, likeMovie
               <div className="profileselect_image empty" onClick={handleProfileSelect} style={profileImages[profile.id] ? { backgroundImage: `url(${profileImages[profile.id]})` } : { backgroundImage: '' }}>
               </div>
               </Link>
+            <div className="profileselect_user_box">
               <div className="profileselect_name">{profile.data.name}</div>
+              <div className="profile_btn_box">
+              <button className='profile_delete_btn' onClick={() => onDeleteProfile(profile.id)}>
+                <FontAwesomeIcon icon={faCircleXmark} size="2xl" style={{color: "#ffffff"}} />
+              </button>
             
-
-            <button className='profile_delete_btn' onClick={() => onDeleteProfile(profile.id)}>
-              Delete
-            </button>
-            <Link to={`/${profile.id}/profile`}>
-              <button className='profile_edit_btn' onClick={handleProfileSelect}>
-                Edit
-            </button>
-            </Link>
+              <Link to={`/${profile.id}/profile`}>
+                <button className='profile_edit_btn' onClick={handleProfileSelect}>
+                <FontAwesomeIcon icon={faPencilAlt} size="2xl" style={{color: "#ffffff"}} />
+              </button>
+              </Link>
+            </div>
+          </div>
           </div>
         ))}
           <button className="profile_add_btn" onClick={onAddProfile}>
-            Add Profile
+          <FontAwesomeIcon icon={faPlusCircle} size="3x" style={{color: "#ffffff"}} />
           </button>
       </div>
     </div>
