@@ -14,7 +14,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft ,faImage, faCheckCircle, faTrash, faPencilAlt } from '@fortawesome/fontawesome-free-solid';
+import { faArrowLeft ,faImage, faCheckCircle, faTrash, faPencilAlt, faHeart, faTimesCircle, faInfoCircle } from '@fortawesome/fontawesome-free-solid';
 import 'styles/Profile.css'
 
 import 'swiper/css';
@@ -340,8 +340,12 @@ function Profile({isTv, userObj, setIsProfileSelect}) {
                       <p className='poster-detail-title'>{movie.title || movie.name || movie.original_name} </p>
                       <p className='poster-detail-overview'>{movie.overview.length > 50 ? `${movie.overview.slice(0, 70)}...` : movie.overview}</p>
                       <div className='poster-detail-btnbox'>
-                        <button className='detail-button-info' onClick={() => onInfoClick(movie)}> Info </button>
-                        <button className='detail-button-like' onClick={() => onUnLikeClick(movie, userObj)}> Unlike </button>
+                      <button className='detail-button-info' onClick={() => onInfoClick(movie)}>
+                          <FontAwesomeIcon icon={faInfoCircle} size="2xl" style={{color: "#ffffff"}} />  
+                        </button>
+                        <button className='detail-button-like' onClick={() => onUnLikeClick(movie, userObj)}>
+                        <FontAwesomeIcon icon={faTimesCircle} size="2xl" style={{color: "#e50712"}} /> 
+                        </button>
                       </div>
                     </div>
                   </div> 

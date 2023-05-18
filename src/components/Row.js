@@ -10,8 +10,12 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+
 import { useLocation } from 'react-router-dom';
 import { db } from 'fbase';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart, faTimesCircle, faInfoCircle } from '@fortawesome/fontawesome-free-solid';
 
 function Row({ isTv, title, id, fetchUrl, userObj }) {
 
@@ -188,9 +192,14 @@ function Row({ isTv, title, id, fetchUrl, userObj }) {
                       <p className='poster-detail-title'>{movie.title || movie.name || movie.original_name} </p>
                       <p className='poster-detail-overview'>{movie.overview.length > 50 ? `${movie.overview.slice(0, 70)}...` : movie.overview}</p>
                       <div className='poster-detail-btnbox'>
-                        <button className='detail-button-info' onClick={() => onInfoClick(movie)}> Info </button>
+                        <button className='detail-button-info' onClick={() => onInfoClick(movie)}>
+                          <FontAwesomeIcon icon={faInfoCircle} size="2xl" style={{color: "#ffffff"}} />  
+                        </button>
                         <button className='detail-button-like' onClick={() => onLikeClick(movie, userObj)}>
-                          {likeMovies.includes(`/movie/${movie.id}`) || likeMovies.includes(`/tv/${movie.id}`) ? 'Unlike' : 'Like'}
+                          {likeMovies.includes(`/movie/${movie.id}`) || likeMovies.includes(`/tv/${movie.id}`) ?
+                          <FontAwesomeIcon icon={faTimesCircle} size="2xl" style={{color: "#e50712"}} /> :
+                          <FontAwesomeIcon icon={faHeart} size="2xl" style={{color: "#e50712"}} />
+                           }
                        </button>
                       </div>
                     </div>
