@@ -15,7 +15,8 @@ import { useLocation } from 'react-router-dom';
 import { db } from 'fbase';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faTimesCircle, faInfoCircle } from '@fortawesome/fontawesome-free-solid';
+import { faHeart, faInfoCircle } from '@fortawesome/fontawesome-free-solid';
+import { faHeart as faEmptyHeart } from '@fortawesome/free-regular-svg-icons';
 
 function Row({ isTv, title, id, fetchUrl, userObj }) {
 
@@ -197,8 +198,8 @@ function Row({ isTv, title, id, fetchUrl, userObj }) {
                         </button>
                         <button className='detail-button-like' onClick={() => onLikeClick(movie, userObj)}>
                           {likeMovies.includes(`/movie/${movie.id}`) || likeMovies.includes(`/tv/${movie.id}`) ?
-                          <FontAwesomeIcon icon={faTimesCircle} size="2xl" style={{color: "#e50712"}} /> :
-                          <FontAwesomeIcon icon={faHeart} size="2xl" style={{color: "#e50712"}} />
+                          <FontAwesomeIcon icon={faHeart} size="2xl" style={{color: "#e50712"}} /> :
+                          <FontAwesomeIcon icon={faEmptyHeart} size="2xl" style={{color: "#e50712"}} />
                            }
                        </button>
                       </div>
