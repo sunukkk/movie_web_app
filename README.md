@@ -15,7 +15,7 @@ Firebase로 회원가입, 로그인 및 소셜로그인 기능, 프로필 설정
 
 ### 주요 내용
 - React로 만든 웹페이지 입니다.
-- Firebase를 사용해 
+- Firebase를 사용해 NoSQL 기반 서버리스 구조의 웹앱입니다.
 - Firebase Authentication를 사용해 회원가입 및 로그인, 소셜로그인 기능을 구현했습니다.
 - Firebase Database, Storage를 사용해 각계정의 프로필 및 좋아요 목록 기능을 구현했습니다.
    - 계정마다 5개의 프로필을 가질 수 있고, 각 프로필마다 좋아요 목록이 따로 저장됩니다.
