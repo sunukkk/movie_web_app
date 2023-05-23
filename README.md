@@ -1,9 +1,13 @@
+<hr/>
+
 # Movie web app
+
 넷플릭스와 같은 구성의 영화 앱입니다.<br />
 Axios를 사용해 외부 API(TMDB)의 데이터를 전달받아 보여줍니다.<br />
 Firebase로 회원가입, 로그인 및 소셜로그인 기능, 프로필 설정 및 좋아요 기능을 구현했습니다.<br />
 일부 컴포넌트에는 styledComponent 가 적용되어있습니다.<br />
 
+<hr/>
 
 ### 제작에 사용된 기술목록
 <a href="/" target="_blank"><img src="https://img.shields.io/badge/Javascript-EEE?style=for-the-badge&logo=javascript&logoColor=F7DF1E"/></a> 
@@ -46,3 +50,4 @@ Firebase로 회원가입, 로그인 및 소셜로그인 기능, 프로필 설정
   
   
 감사합니다.
+<hr/>
