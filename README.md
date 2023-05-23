@@ -10,6 +10,8 @@ Firebase로 회원가입, 로그인 및 소셜로그인 기능을 구현했습�
 
 <hr/>
 
+<br />
+
 ### 제작에 사용된 기술목록
 <a href="/" target="_blank"><img src="https://img.shields.io/badge/Javascript-EEE?style=for-the-badge&logo=javascript&logoColor=F7DF1E"/></a> 
 <a href="/" target="_blank"><img src="https://img.shields.io/badge/html5-EEE?style=for-the-badge&logo=html5&logoColor=E34F26"/></a> 
@@ -19,6 +21,7 @@ Firebase로 회원가입, 로그인 및 소셜로그인 기능을 구현했습�
 <a href="/" target="_blank"><img src="https://img.shields.io/badge/react-EEE?style=for-the-badge&logo=react&logoColor=61DAFB"/></a>
 <a href="/" target="_blank"><img src="https://img.shields.io/badge/firebase-EEE?style=for-the-badge&logo=firebase&logoColor=FFCA28"/></a>
 
+<br />
 
 ### 주요 내용
 - React로 만든 웹페이지 입니다.
@@ -30,6 +33,7 @@ Firebase로 회원가입, 로그인 및 소셜로그인 기능을 구현했습�
 - Axios로 TMDB API를 호출해 영화관련 데이터를 받아서 Modal에 출력합니다.
 - Swiper 라이브러리로 각 영화 목록의 캐러셀을 구현했습니다.
 
+<br />
 
 ### 사용된 주요 라이브러리
 - axios : api통신을 위해 사용했습니다.
@@ -38,10 +42,11 @@ Firebase로 회원가입, 로그인 및 소셜로그인 기능을 구현했습�
 - sass : scss, styledcomponent를 활용한 스타일링으로 제작했습니다.
 - fontawesome : 아이콘을 위해 사용한 라이브러리입니다.
 
+<br />
 
 ### 특이사항
 - 영화정보등을 보여주는 Modal에서, <br />
-  axios 모듈로 api를요청 할 때, 한국어의 정보를 받아오기 위해 ko-KR 쿼리 파라미터를 추가하면, <br />
+  axios 모듈로 api를요청 할 때, 한국어의 정보를 받아오기 위해 ko-KR 쿼리 파라미터를 추가했을 때, <br />
   이미지 등 다른 정보를 못받아오기때문에(쿼리 파라미터를 추가하면 포스터등의 이미지가 포함되어있지 않음), <br />
   axiosimage 모듈을 추가로 제작해 기본설정(영어) 데이터에 있는 <br />
   이미지(poster)들 중 언어(iso_639_1)가 ko 인 이미지들의 배열을 필터링해 매핑했습니다.
@@ -61,6 +66,8 @@ Firebase로 회원가입, 로그인 및 소셜로그인 기능을 구현했습�
          └── 문서(프로필, 최대 5개)
          
 ```      
+
+<br />
 
 감사합니다.
 <hr/>
