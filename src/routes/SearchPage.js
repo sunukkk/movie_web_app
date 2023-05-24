@@ -5,6 +5,7 @@ import MainPage from './MainPage';
 import useDebounce from 'hooks/useDebounce';
 
 import '../styles/SearchPage.css'
+import Nav from 'components/Nav';
 
 
 function SearchPage() {
@@ -46,28 +47,34 @@ function SearchPage() {
     }
 
     return searchResults.length >0 ? (
-      <section className="search-container">
-        {searchResults.map(movie => {
-          if(movie.backdrop_path !== null && movie.media_type !== "person"){
-            const movieImageUrl = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
-                return(
-                  <div className="movie">
-                    <div className="movie__column-poster" onClick={() =>navigate(`/${movie.id}`)}>
-                      <img src = {movieImageUrl} alt = {movie.title} className='movie__poster' />
+      <>
+      <Nav /> 
+        <section className="search-container">
+          {searchResults.map(movie => {
+            if(movie.backdrop_path !== null && movie.media_type !== "person"){
+              const movieImageUrl = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
+                  return(
+                    <div className="movie">
+                      <div className="movie__column-poster" onClick={() =>navigate(`/${movie.id}`)}>
+                        <img src = {movieImageUrl} alt = {movie.title} className='movie__poster' />
+                      </div>
                     </div>
-                  </div>
-                )
-          }
-        })}
-      </section>
+                  )
+            }
+          })}
+        </section>
+      </>
     ) : (
-      <section className="no-results">
-        <div className="no-results__text">
-          <p>
-            찾고자하는 검색어 "{searchTerm}"에 맞는 영화가 없습니다.
-          </p>
-        </div>
-      </section>
+      <>
+      <Nav /> 
+        <section className="no-results">
+          <div className="no-results__text">
+            <p>
+              찾고자하는 검색어 "{searchTerm}"에 맞는 영화가 없습니다.
+            </p>
+          </div>
+        </section>
+      </>
     )
     
   }

@@ -14,7 +14,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft ,faImage, faCheckCircle, faTrash, faPencilAlt, faHeart, faTimesCircle, faInfoCircle } from '@fortawesome/fontawesome-free-solid';
+import { faArrowLeft ,faImage, faCheckCircle, faTrash, faPencilAlt, faTimesCircle, faInfoCircle } from '@fortawesome/fontawesome-free-solid';
 import 'styles/Profile.css'
 
 import 'swiper/css';
@@ -41,7 +41,6 @@ function Profile({isTv, userObj, setIsProfileSelect}) {
   
   const [selectedUrl, setSelectedUrl] = useState("")
   const [modalOpen, setModalOpen] = useState(false)
-  const [likeMovies, setLikeMovies] = useState([]);
   const [unlikeClicked, setUnlikeClicked] = useState(false);
 
   useEffect(() => {
