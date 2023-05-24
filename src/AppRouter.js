@@ -59,6 +59,7 @@ function AppRouter() {
           <Route path = '/:id' element ={<Layout />}>
             <Route index element={<MainPage userObj={userObj} /> } />
             <Route path=":movieId" element={<DetailPage />} />
+            
           </Route>
           <Route path="/search" element={<SearchPage />} />
           <Route path="/:id/profile" element={<Profile userObj ={userObj} setIsProfileSelect={setIsProfileSelect} />} />

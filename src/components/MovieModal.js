@@ -12,7 +12,6 @@ function MovieModal({ setModalOpen, id, fetchUrl, isTv }) {
   const [movie, setMovie] = useState({});
   const ref = useRef();
   const [koposters, setKoposters] = useState([])
-  
   useOnClickOutside(ref, () => { setModalOpen(false) });
  
 

@@ -3,17 +3,15 @@ import requests from 'api/requests';
 import ProfileSelect from './ProfileSelect';
 import Banner from 'components/Banner';
 import Row from 'components/Row';
-import Nav from 'components/Nav';
 
 function MainPage({ userObj }) {
-  
+
   const [isProfileSelect, setIsProfileSelect] = useState(false);
  
   return (
     <div>
       {!isProfileSelect ? (
         <>
-          <Nav />
           <Banner />
           <Row title='NETFLIX ORIGINALS' id='NO' fetchUrl={requests.fetchNetflixOriginals} isTv userObj={userObj} />
           <Row title='Trending Now' id='TN' fetchUrl={requests.fetchTrending} userObj={userObj} />

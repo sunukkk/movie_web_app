@@ -21,16 +21,13 @@ function SearchPage() {
   const searchTerm = query.get("q");
   const debounceSearchTerm = useDebounce(searchTerm, 500)
 
-  console.log('useLocation ->' , useLocation())
-  console.log('searchTerm ->', searchTerm)
-  
   useEffect(() =>{
     if(debounceSearchTerm){
       fetchSearchMovies(debounceSearchTerm)
     }
   }, [debounceSearchTerm])
 
-  const fetchSearchMovies = async () =>{
+  const fetchSearchMovies = async (searchTerm) =>{
     try{
       const request = await axios.get(`/search/movie?include_adult=false&query=${debounceSearchTerm}`)
       console.log('request->', request)
@@ -46,9 +43,9 @@ function SearchPage() {
       return <MainPage />
     }
 
-    return searchResults.length >0 ? (
+    return searchResults.length >= 0 ? (
       <>
-      <Nav /> 
+      <Nav/>
         <section className="search-container">
           {searchResults.map(movie => {
             if(movie.backdrop_path !== null && movie.media_type !== "person"){
@@ -61,12 +58,13 @@ function SearchPage() {
                     </div>
                   )
             }
-          })}
+        })}
         </section>
+      
       </>
     ) : (
       <>
-      <Nav /> 
+      <Nav />
         <section className="no-results">
           <div className="no-results__text">
             <p>
@@ -74,6 +72,7 @@ function SearchPage() {
             </p>
           </div>
         </section>
+      
       </>
     )
     

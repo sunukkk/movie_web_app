@@ -41,6 +41,7 @@ function Profile({isTv, userObj, setIsProfileSelect}) {
   
   const [selectedUrl, setSelectedUrl] = useState("")
   const [modalOpen, setModalOpen] = useState(false)
+  const [likeMovies, setLikeMovies] = useState([]);
   const [unlikeClicked, setUnlikeClicked] = useState(false);
 
   useEffect(() => {
